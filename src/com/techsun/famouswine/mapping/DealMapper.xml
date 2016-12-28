@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.DealMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Deal" >
+    <id column="deal_id" property="dealId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="deal_type" property="dealType" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    deal_id, user_id, user_type, deal_type, money, content, activated, deleted, created_date, 
+    updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_deal
+    where deal_id = #{dealId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_deal
+    where deal_id = #{dealId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Deal" >
+    <selectKey resultType="java.lang.Integer" keyProperty="dealId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_deal (user_id, user_type, deal_type, 
+      money, content, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER}, #{dealType,jdbcType=INTEGER}, 
+      #{money,jdbcType=DOUBLE}, #{content,jdbcType=VARCHAR}, #{activated,jdbcType=BIT}, 
+      #{deleted,jdbcType=BIT}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Deal" >
+    <selectKey resultType="java.lang.Integer" keyProperty="dealId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_deal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="dealType != null" >
+        deal_type,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="dealType != null" >
+        #{dealType,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Deal" >
+    update t_deal
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="dealType != null" >
+        deal_type = #{dealType,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where deal_id = #{dealId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Deal" >
+    update t_deal
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_type = #{userType,jdbcType=INTEGER},
+      deal_type = #{dealType,jdbcType=INTEGER},
+      money = #{money,jdbcType=DOUBLE},
+      content = #{content,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where deal_id = #{dealId,jdbcType=INTEGER}
+  </update>
+  <select id="findUserDealList" parameterType="com.techsun.famouswine.domain.CommonParam" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_deal
+    where user_id = #{userId,jdbcType=INTEGER} and
+    	  user_type = #{userType,jdbcType=INTEGER} and
+    	  deal_type = #{dealType,jdbcType=INTEGER}
+    order by created_date desc
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectAllDealList" parameterType="com.techsun.famouswine.domain.CommonParam" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_deal
+    where user_id = #{userId,jdbcType=INTEGER} and
+    	  user_type = #{userType,jdbcType=INTEGER}
+    order by created_date desc
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+</mapper>

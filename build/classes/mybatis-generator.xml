@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+   <properties resource="mybatis.properties" />
+   <classPathEntry location="src/main/orm/lib/mysql-connector-java-5.1.7-bin.jar" />
+   <!-- MyBatis3 Ibatis2Java5 -->
+   <context id="context1" targetRuntime="MyBatis3">
+      <plugin type="tools.MapperPaginationPlugin" />
+      <commentGenerator>
+         <property name="suppressAllComments" value="true" />
+      </commentGenerator>
+      <jdbcConnection driverClass="${jdbc.driver.class}" connectionURL="${jdbc.url}" userId="${jdbc.user}" password="${jdbc.password}" />
+      <javaTypeResolver>
+         <property name="forceBigDecimals" value="false" />
+      </javaTypeResolver>
+      <javaModelGenerator targetPackage="${model.package}" targetProject="${targetProject}">
+         <property name="enableSubPackages" value="true" />
+         <property name="trimStrings" value="true" />
+      </javaModelGenerator>
+
+      <sqlMapGenerator targetPackage="${sqlMap.package}" targetProject="${targetProject}">
+         <property name="enableSubPackages" value="true" />
+      </sqlMapGenerator>
+      <!-- SPRING XMLMAPPER -->
+      <javaClientGenerator type="XMLMAPPER" targetPackage="${dao.package}" targetProject="${targetProject}">
+         <property name="enableSubPackages" value="true" />
+      </javaClientGenerator>
+<!-- 
+        <table tableName="place" modelType="flat"></table>
+		<table tableName="user" modelType="flat"></table>
+		<table tableName="user_role" modelType="flat" domainObjectName="UserRole">
+			<generatedKey column="USER_ROLE_ID" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+		</table>
+		<table tableName="module" modelType="flat"></table>
+		<table tableName="roleModuleRelation" modelType="flat" domainObjectName="RoleModuleRelation"></table>
+      -->
+	  
+	  <table tableName="t_coupon" domainObjectName="Coupon" enableCountByExample="false"
+		  enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  
+		  selectByExampleQueryId="false">
+		  <generatedKey column="coupon_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>		  		  
+	  </table>
+	  
+	  
+<!-- <table tableName="t_knowledge_comment" domainObjectName="KnowledgeComment" enableCountByExample="false"
+		  enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  
+		  selectByExampleQueryId="false">
+
+	  </table> -->
+<!--      <table tableName="app_info" modelType="flat" domainObjectName="AppInfo">
+			<generatedKey column="app_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+			<columnOverride column="type" javaType="java.lang.Integer"></columnOverride>
+		</table> --> 
+		
+<!-- 		<table tableName="t_app_baseinfo" modelType="flat" domainObjectName="AppBaseInfo">
+			<generatedKey column="app_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+			<columnOverride column="app_type" javaType="java.lang.Integer"></columnOverride>
+		</table> -->
+		
+		<!-- <table tableName="t_app_detail" modelType="flat" domainObjectName="AppDetail"/> -->
+			<!-- <generatedKey column="app_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey> -->
+			<!-- <columnOverride column="app_type" javaType="java.lang.Integer"></columnOverride> -->
+		
+<!-- 		<table tableName="t_user" modelType="flat" domainObjectName="AppUser">
+			<generatedKey column="user_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+		</table> -->
+		
+<!-- 		<table tableName="t_app_snapshot" modelType="flat" domainObjectName="AppSnapShot">
+			<generatedKey column="snapshot_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+		</table> -->
+		
+		<!-- <table tableName="t_user_base_info" modelType="flat" domainObjectName="User">
+			<generatedKey column="user_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+		</table>
+		 -->
+		 
+<!-- 		 <table tableName="t_my_community" domainObjectName="MyCommunity" enableCountByExample="false"
+		  enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  
+		  selectByExampleQueryId="false">
+		  		  </table>   -->
+		  		  
+	<!--    <table tableName="t_record" domainObjectName="Record" enableCountByExample="false"
+		  enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  
+		  selectByExampleQueryId="false">
+		  
+		  </table>		-->	
+<!-- 		  <table tableName="t_collection" domainObjectName="Collection" enableCountByExample="false"
+		  enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  
+		  selectByExampleQueryId="false">
+		  </table>   -->
+		  
+<!-- 		  <table tableName="t_city" domainObjectName="City" enableCountByExample="false"
+		  enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  
+		  selectByExampleQueryId="false">
+		  </table>   -->
+		  
+		  
+		
+		 
+<!-- 	<table tableName="t_app_download" modelType="flat" domainObjectName="AppDownload">
+			<generatedKey column="download_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+		</table>
+		<table tableName="t_file_upload" modelType="flat" domainObjectName="FileUpload">
+			<generatedKey column="upload_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+		</table>
+		
+		<table tableName="t_app_comment" modelType="flat" domainObjectName="AppComment">
+			<generatedKey column="comment_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+		</table>
+		
+		<table tableName="t_app_show" modelType="flat" domainObjectName="AppShow"/> -->
+		
+		<!-- 
+		<table tableName="table" modelType="flat" domainObjectName="TableInfo">
+			<generatedKey column="app_id" identity="true" sqlStatement="SELECT LAST_INSERT_ID()"></generatedKey>
+		</table> -->
+		
+	
+   </context>
+
+</generatorConfiguration>

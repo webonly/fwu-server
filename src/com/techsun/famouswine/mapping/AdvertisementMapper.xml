@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.AdvertisementMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Advertisement" >
+    <id column="advertisement_id" property="advertisementId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="position" property="position" jdbcType="INTEGER" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="sort_index" property="sortIndex" jdbcType="INTEGER" />
+    <result column="jump_url" property="jumpUrl" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    advertisement_id, name, type, position, image_url, sort_index, jump_url, description, 
+    activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_advertisement
+    where advertisement_id = #{advertisementId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_advertisement
+    where advertisement_id = #{advertisementId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Advertisement" >
+    <selectKey resultType="java.lang.Integer" keyProperty="advertisementId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_advertisement (name, type, position, 
+      image_url, sort_index, jump_url, 
+      description, activated, deleted, 
+      created_date, updated_date)
+    values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{position,jdbcType=INTEGER}, 
+      #{imageUrl,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER}, #{jumpUrl,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{activated,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Advertisement" >
+    <selectKey resultType="java.lang.Integer" keyProperty="advertisementId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_advertisement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="sortIndex != null" >
+        sort_index,
+      </if>
+      <if test="jumpUrl != null" >
+        jump_url,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null" >
+        #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="jumpUrl != null" >
+        #{jumpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Advertisement" >
+    update t_advertisement
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null" >
+        sort_index = #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="jumpUrl != null" >
+        jump_url = #{jumpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where advertisement_id = #{advertisementId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Advertisement" >
+    update t_advertisement
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      position = #{position,jdbcType=INTEGER},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      sort_index = #{sortIndex,jdbcType=INTEGER},
+      jump_url = #{jumpUrl,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where advertisement_id = #{advertisementId,jdbcType=INTEGER}
+  </update>
+  
+<select id="selectHomeAdvertisementList" resultMap="BaseResultMap">
+SELECT * from t_advertisement
+WHERE type = 1 limit 0,5
+union
+SELECT * from t_advertisement
+WHERE type = 2 limit 0,1
+union
+SELECT * from t_advertisement
+WHERE type = 3 limit 0,3
+union
+SELECT * from t_advertisement
+WHERE type = 4 limit 0,4
+union
+SELECT * from t_advertisement
+WHERE type = 5 limit 0,15
+ 
+  </select>
+  
+  
+  <select id="selectAdvertisementListByType" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam">
+SELECT * from t_advertisement
+WHERE type = #{type,jdbcType=INTEGER}
+limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER} 
+ 
+  </select>
+  
+  
+</mapper>

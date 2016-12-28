@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.EvaluateMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Evaluate" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="product_agreement" property="productAgreement" jdbcType="INTEGER" />
+    <result column="merchant_service" property="merchantService" jdbcType="INTEGER" />
+    <result column="express_service" property="expressService" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="reply" property="reply" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, user_id, product_agreement, merchant_service, express_service, content, 
+    reply, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_evaluate
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_evaluate
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Evaluate" >
+    insert into t_evaluate (order_id, user_id, product_agreement, 
+      merchant_service, express_service, content, 
+      reply, activated, deleted, 
+      created_date, updated_date)
+    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{productAgreement,jdbcType=INTEGER}, 
+      #{merchantService,jdbcType=INTEGER}, #{expressService,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{reply,jdbcType=VARCHAR}, #{activated,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Evaluate" >
+    insert into t_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="productAgreement != null" >
+        product_agreement,
+      </if>
+      <if test="merchantService != null" >
+        merchant_service,
+      </if>
+      <if test="expressService != null" >
+        express_service,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="reply != null" >
+        reply,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="productAgreement != null" >
+        #{productAgreement,jdbcType=BIT},
+      </if>
+      <if test="merchantService != null" >
+        #{merchantService,jdbcType=BIT},
+      </if>
+      <if test="expressService != null" >
+        #{expressService,jdbcType=BIT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null" >
+        #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Evaluate" >
+    update t_evaluate
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="productAgreement != null" >
+        product_agreement = #{productAgreement,jdbcType=INTEGER},
+      </if>
+      <if test="merchantService != null" >
+        merchant_service = #{merchantService,jdbcType=INTEGER},
+      </if>
+      <if test="expressService != null" >
+        express_service = #{expressService,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null" >
+        reply = #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Evaluate" >
+    update t_evaluate
+    set user_id = #{userId,jdbcType=INTEGER},
+      product_agreement = #{productAgreement,jdbcType=INTEGER},
+      merchant_service = #{merchantService,jdbcType=INTEGER},
+      express_service = #{expressService,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      reply = #{reply,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+    <select id="selectEvaluateListByProductId" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    select e.*
+    from t_evaluate e
+    inner join t_order o
+    on o.order_id = e.order_id
+    inner join t_order_product op
+    on o.order_id = op.order_id
+    inner join t_product p
+    on p.product_id = op.product_id
+    inner join t_merchant m
+    on o.merchant_id = m.merchant_id
+    and m.merchant_id = #{merchantId,jdbcType=INTEGER}
+    where op.product_id = #{productId,jdbcType=INTEGER}
+    GROUP BY e.order_id
+    order by e.created_date desc 
+  </select>
+  
+  <select id="selectEvaluateListByMerchantId" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    select e.*
+    from t_evaluate e
+    inner join t_order o
+    on o.order_id = e.order_id
+    inner join t_merchant m
+    on o.merchant_id  = #{merchantId,jdbcType=INTEGER}
+    group by o.merchant_id
+    order by e.created_date desc
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}  
+  </select>
+  
+  
+</mapper>

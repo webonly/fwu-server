@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.techsun.famouswine.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Order" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="turnover" property="turnover" jdbcType="DOUBLE" />
+    <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="express_fee" property="expressFee" jdbcType="DOUBLE" />
+    <result column="arrival_time" property="arrivalTime" jdbcType="TIMESTAMP" />
+    <result column="user_message" property="userMessage" jdbcType="VARCHAR" />
+    <result column="invoice_info" property="invoiceInfo" jdbcType="VARCHAR" />
+    <result column="distribution_mode" property="distributionMode" jdbcType="VARCHAR" />
+    <result column="express_company" property="expressCompany" jdbcType="VARCHAR" />
+    <result column="delivery_way" property="deliveryWay" jdbcType="VARCHAR" />
+    <result column="express_expenses" property="expressExpenses" jdbcType="DOUBLE" />
+    <result column="express_code" property="expressCode" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <resultMap id="ResultMap" type="com.techsun.famouswine.domain.OrderResult">
+    <id column="order_id" jdbcType="INTEGER" property="orderResultId" />
+    <result column="nick_name" jdbcType="VARCHAR" property="userName" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="name" jdbcType="VARCHAR" property="productName" />
+    <result column="capacity" jdbcType="VARCHAR" property="productCapacity" />
+    <result column="price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="turnover" property="turnover" jdbcType="DECIMAL" />
+    <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="number" jdbcType="INTEGER" property="productNum" />
+    <result column="image_url" jdbcType="VARCHAR" property="productUrl" />
+    <result column="distribution" jdbcType="VARCHAR" property="distribution" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="arrival_time" jdbcType="TIMESTAMP" property="arrivalTime" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="express_fee" property="expressFee" jdbcType="DOUBLE" />
+    <result column="addressee_phone" property="mobile" jdbcType="VARCHAR" />
+    <result column="invoice_info" property="invoiceInfo" jdbcType="VARCHAR" />
+    <result column="distribution_mode" property="distributionMode" jdbcType="VARCHAR" />
+    <result column="delivery_way" property="deliveryWay" jdbcType="VARCHAR" />
+    <result column="express_expenses" property="expressExpenses" jdbcType="DOUBLE" />
+    <result column="express_code" property="expressCode" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="addressee" property="address" jdbcType="VARCHAR" />
+    <result column="user_message" property="userMessage" jdbcType="VARCHAR" />
+    <result column="purchase_price" property="purchasePrice" jdbcType="DECIMAL" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="content" property="appealContent" jdbcType="VARCHAR" />
+    <result column="result" property="appealResult" jdbcType="VARCHAR" />
+    <result column="appeal_type" property="appealType" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+    <resultMap id="OrderCount" type="com.techsun.famouswine.domain.OrderCount">
+    <result column="order_count" jdbcType="INTEGER" property="orderCount" />
+    <result column="turnover_sum" jdbcType="DOUBLE" property="turnoverSum" />
+    
+    </resultMap>
+  
+    <resultMap id="OrderCountResultMap" type="com.techsun.famouswine.domain.OrderCount">
+	    <result column="status" property="status" jdbcType="INTEGER" />
+	    <result column="count" property="number" jdbcType="INTEGER" />
+	    <result column="turnover" property="price" jdbcType="DOUBLE" />
+    </resultMap>
+    <resultMap id="OrderProductExt" type="com.techsun.famouswine.domain.OrderProductExt" >
+     <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <id column="op_id" property="opId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_icon" property="productIcon" jdbcType="VARCHAR" />
+    <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    <result column="merchant_icon" property="merchantIcon" jdbcType="VARCHAR" />
+    <result column="purchase_price" property="purchasePrice" jdbcType="DOUBLE" />   
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="qrcode" property="qrcode" jdbcType="VARCHAR" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    order_id, user_id, merchant_id, code, type, status, turnover,coupon_id, express_fee, arrival_time, 
+    user_message, invoice_info, distribution_mode, express_company, delivery_way, express_expenses, 
+    express_code, description, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Order" >
+    <selectKey resultType="java.lang.Integer" keyProperty="orderId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order (user_id, merchant_id, code, 
+      type, status, turnover,coupon_id, express_fee, 
+      arrival_time, user_message, invoice_info, 
+      distribution_mode, express_company, delivery_way, 
+      express_expenses, express_code, description, 
+      activated, deleted, created_date, 
+      updated_date)
+    values (#{userId,jdbcType=INTEGER}, #{merchantId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{turnover,jdbcType=DOUBLE}, #{couponId,jdbcType=INTEGER},#{expressFee,jdbcType=DOUBLE}, 
+      #{arrivalTime,jdbcType=TIMESTAMP}, #{userMessage,jdbcType=VARCHAR}, #{invoiceInfo,jdbcType=VARCHAR}, 
+      #{distributionMode,jdbcType=VARCHAR}, #{expressCompany,jdbcType=VARCHAR}, #{deliveryWay,jdbcType=VARCHAR}, 
+      #{expressExpenses,jdbcType=DECIMAL}, #{expressCode,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{activated,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{createdDate,jdbcType=TIMESTAMP}, 
+      #{updatedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Order" >
+    <selectKey resultType="java.lang.Integer" keyProperty="orderId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="turnover != null" >
+        turnover,
+      </if>
+      <if test="couponId != null" >
+        coupon_id,
+      </if>
+      <if test="expressFee != null" >
+        express_fee,
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time,
+      </if>
+      <if test="userMessage != null" >
+        user_message,
+      </if>
+      <if test="invoiceInfo != null" >
+        invoice_info,
+      </if>
+      <if test="distributionMode != null" >
+        distribution_mode,
+      </if>
+      <if test="expressCompany != null" >
+        express_company,
+      </if>
+      <if test="deliveryWay != null" >
+        delivery_way,
+      </if>
+      <if test="expressExpenses != null" >
+        express_expenses,
+      </if>
+      <if test="expressCode != null" >
+        express_code,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="activated != null">
+        activated,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="updatedDate != null">
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="turnover != null" >
+        #{turnover,jdbcType=DOUBLE},
+      </if>
+      <if test="couponId != null" >
+        #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="expressFee != null" >
+        #{expressFee,jdbcType=DOUBLE},
+      </if>
+      <if test="arrivalTime != null" >
+        #{arrivalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userMessage != null" >
+        #{userMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceInfo != null" >
+        #{invoiceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="distributionMode != null" >
+        #{distributionMode,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompany != null" >
+        #{expressCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryWay != null" >
+        #{deliveryWay,jdbcType=VARCHAR},
+      </if>
+      <if test="expressExpenses != null" >
+        #{expressExpenses,jdbcType=DOUBLE},
+      </if>
+      <if test="expressCode != null" >
+        #{expressCode,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null">
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null">
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Order">
+    update t_order
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="turnover != null" >
+        turnover = #{turnover,jdbcType=DOUBLE},
+      </if>
+      <if test="couponId != null" >
+        coupon_id = #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="expressFee != null" >
+        express_fee = #{expressFee,jdbcType=DOUBLE},
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time = #{arrivalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userMessage != null" >
+        user_message = #{userMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceInfo != null" >
+        invoice_info = #{invoiceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="distributionMode != null" >
+        distribution_mode = #{distributionMode,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompany != null" >
+        express_company = #{expressCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryWay != null" >
+        delivery_way = #{deliveryWay,jdbcType=VARCHAR},
+      </if>
+      <if test="expressExpenses != null" >
+        express_expenses = #{expressExpenses,jdbcType=DOUBLE},
+      </if>
+      <if test="expressCode != null" >
+        express_code = #{expressCode,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null">
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null">
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null">
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Order">
+    update t_order
+    set user_id = #{userId,jdbcType=INTEGER},
+      merchant_id = #{merchantId,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      turnover = #{turnover,jdbcType=DOUBLE},
+      coupon_id = #{couponId,jdbcType=INTEGER},
+      express_fee = #{expressFee,jdbcType=DOUBLE},
+      arrival_time = #{arrivalTime,jdbcType=TIMESTAMP},
+      user_message = #{userMessage,jdbcType=VARCHAR},
+      invoice_info = #{invoiceInfo,jdbcType=VARCHAR},
+      distribution_mode = #{distributionMode,jdbcType=VARCHAR},
+      express_company = #{expressCompany,jdbcType=VARCHAR},
+      delivery_way = #{deliveryWay,jdbcType=VARCHAR},
+      express_expenses = #{expressExpenses,jdbcType=DOUBLE},
+      express_code = #{expressCode,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findOrderCount" resultMap="OrderCountResultMap" parameterType="com.techsun.famouswine.domain.OrderCount" >
+    select o.status, count(o.`status`) as count,sum(o.turnover) as turnover
+	from t_order o 
+	where o.merchant_id = #{merchantId,jdbcType=INTEGER}
+          and date_format(o.updated_date,'%Y-%m-%d') &gt;= date_format(#{currentTime,jdbcType=VARCHAR},'%Y-%m-%d')
+          and date_format(o.updated_date,'%Y-%m-%d') &lt;= date_format(#{endTime,jdbcType=VARCHAR},'%Y-%m-%d') 
+	group by o.`status`
+  </select>
+  
+
+	<!--获取用户所有订单  -->
+  <select id="selectUserOrderList" parameterType="com.techsun.famouswine.domain.CommonParam" resultMap="ResultMap">
+    select o.order_id,
+	p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id
+	= m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	where
+	u.user_id = #{userId,jdbcType=INTEGER}
+	and op.activity_id = 0
+	GROUP BY o.order_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}	
+	UNION	
+	select o.order_id, p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_user u on o.user_id = u.user_id
+	inner join t_activity a on a.activity_id = op.activity_id
+	inner join t_activity_product ap on ap.activity_id = a.activity_id and
+	ap.product_id = op.product_id
+	where u.user_id =  #{userId,jdbcType=INTEGER}
+	and op.activity_id != 0
+	GROUP BY o.order_id, a.activity_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+ 
+ 	<!-- 根据状态获取用户订单 -->
+  <select id="selectUserOrderListByStatus" parameterType="com.techsun.famouswine.domain.CommonParam" resultMap="ResultMap">
+   select o.order_id,
+	p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id
+	= m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	where
+	u.user_id =  #{userId,jdbcType=INTEGER}
+	and op.activity_id = 0
+	and o.status =  #{status,jdbcType=INTEGER}
+	GROUP BY o.order_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+	
+	UNION
+	
+	select o.order_id, p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_user u on o.user_id = u.user_id
+	inner join t_activity a on a.activity_id = op.activity_id
+	inner join t_activity_product ap on ap.activity_id = a.activity_id and
+	ap.product_id = op.product_id
+	where u.user_id =  #{userId,jdbcType=INTEGER}
+	and o.status =  #{status,jdbcType=INTEGER}
+	and op.activity_id != 0
+	GROUP BY o.order_id, a.activity_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 获取商家所有订单 -->
+  <select id="selectMerchantOrderList" parameterType="com.techsun.famouswine.domain.CommonParam" resultMap="ResultMap">
+	select o.order_id,
+	p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,m.merchant_name,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id
+	= m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	where
+	m.merchant_id = #{merchantId,jdbcType=INTEGER}
+	and op.activity_id = 0
+	GROUP BY o.order_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+	
+	UNION
+	
+	select o.order_id, p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,m.merchant_name,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id
+	= m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	inner join t_activity a on a.activity_id = op.activity_id
+	inner join t_activity_product ap on ap.activity_id = a.activity_id and
+	ap.product_id = op.product_id
+	where m.merchant_id =  #{merchantId,jdbcType=INTEGER}
+	and op.activity_id != 0
+	GROUP BY o.order_id, a.activity_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 根据状态获取商家订单 -->
+  <select id="selectMerchantOrderListByStatus" parameterType="com.techsun.famouswine.domain.CommonParam" resultMap="ResultMap">
+    select o.order_id,
+	p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,m.merchant_name,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id
+	= m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	where
+	m.merchant_id =  #{merchantId,jdbcType=INTEGER}
+	and op.activity_id = 0
+	and o.status =  #{status,jdbcType=INTEGER}
+	GROUP BY o.order_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+	
+	UNION
+	
+	select o.order_id, p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,m.merchant_name,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id
+	= m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	inner join t_activity a on a.activity_id = op.activity_id
+	inner join t_activity_product ap on ap.activity_id = a.activity_id and
+	ap.product_id = op.product_id
+	where m.merchant_id =  #{merchantId,jdbcType=INTEGER}
+	and o.status =  #{status,jdbcType=INTEGER}
+	and op.activity_id != 0
+	GROUP BY o.order_id, a.activity_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+
+   <select id="findOrderListByStatus" parameterType="com.techsun.famouswine.domain.CommonParam" resultMap="ResultMap">
+    select m.merchant_name,p.product_id,s.purchase_price,i.image_url,p.name,o.description,o.arrival_time,o.invoice_info,o.order_id,o.code,o.created_date,o.status,u.nick_name,p.capacity,i.image_url 
+    from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join t_store s on p.product_id = s.product_id
+	inner join t_image i on p.product_id = i.product_id
+	inner join t_merchant m on o.merchant_id = m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	where o.user_id  = #{userId,jdbcType=INTEGER} and
+		  o.status = #{type,jdbcType=INTEGER}
+	order by o.created_date desc
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  
+ <select id="selectByOrderStatus" resultMap="ResultMap" parameterType="java.lang.Integer" >
+ 	SELECT
+	t_order.*,
+	t_image.image_url,
+	t_store.amount,
+	t_store.purchase_price
+	FROM
+	t_order
+	INNER JOIN t_order_product ON t_order.order_id =t_order_product.op_id
+	INNER JOIN t_merchant ON t_merchant.merchant_id= t_order.merchant_id
+	INNER JOIN t_product ON t_order_product.product_id=t_product.product_id
+	INNER JOIN t_store ON t_product.product_id =t_store.product_id
+	INNER JOIN t_image ON t_image.product_id =t_product.product_id
+	AND t_order.`status` = #{0,jdbcType=INTEGER} 
+	AND t_merchant.merchant_id=#{1,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="selectByOrderList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	SELECT
+	t_order.*,
+	t_image.image_url,
+	t_store.amount,
+	t_store.purchase_price
+	FROM
+	t_order
+	INNER JOIN t_order_product ON t_order.order_id =t_order_product.op_id
+	INNER JOIN t_merchant ON t_merchant.merchant_id= t_order.merchant_id
+	INNER JOIN t_product ON t_order_product.product_id=t_product.product_id
+	INNER JOIN t_store ON t_product.product_id =t_store.product_id
+	INNER JOIN t_image ON t_image.product_id =t_product.product_id
+	AND TO_DAYS(t_order.created_date)=TO_DAYS(now())
+	AND t_merchant.merchant_id = #{0,jdbcType=INTEGER}
+
+  </select>
+  
+  
+  <!-- 根据日期获取订当日订单 -->
+  <select id="selectByOrderBeforeList"  resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.OrderResult" >
+	select o.order_id,
+	p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,m.merchant_name,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id = m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	where
+	m.merchant_id = #{merchantId,jdbcType=INTEGER}
+	and op.activity_id = 0
+	AND TO_DAYS(o.created_date) = TO_DAYS(#{createdMerchantDate,jdbcType=VARCHAR})
+	GROUP BY o.order_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+	
+	UNION
+	
+	select o.order_id, p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,m.merchant_name,p.name,u.nick_name,p.capacity,ss.purchase_price
+	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id
+	= m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	inner join t_activity a on a.activity_id = op.activity_id
+	inner join t_activity_product ap on ap.activity_id = a.activity_id and
+	ap.product_id = op.product_id
+	where m.merchant_id =#{merchantId,jdbcType=INTEGER}
+	AND TO_DAYS(o.created_date)=TO_DAYS(#{createdMerchantDate,jdbcType=VARCHAR})
+	and op.activity_id != 0
+	GROUP BY o.order_id, a.activity_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+
+  </select>
+  
+  
+  <select id="selectByOrderDetails" resultMap="ResultMap" parameterType="java.lang.Integer" >
+   select o.order_id, p.product_id,op.activity_id,o.code,count(p.product_id) as number,o.created_date,o.status,o.arrival_time,o.delivery_way,o.distribution_mode,o.description,
+   o.express_code,o.invoice_info,o.user_message,o.express_expenses,o.express_fee,m.merchant_name,addr.address,p.name,u.nick_name,p.capacity,ss.purchase_price,addr.addressee,addr.addressee_phone
+  	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join 
+  (SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss 
+  on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id = m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	inner join t_address addr on u.user_id = addr.user_id
+  inner join t_activity_product ap on ap.product_id = op.product_id
+	where o.order_id  = #{orderId,jdbcType=INTEGER}
+  and op.activity_id = 0
+	GROUP BY p.product_id
+  having count(p.product_id)
+UNION
+ select o.order_id, p.product_id,op.activity_id,o.code,count(p.product_id) as number,o.created_date,o.status,o.arrival_time,o.delivery_way,o.distribution_mode,o.description,
+ o.express_code,o.invoice_info,o.user_message,o.express_expenses,o.express_fee,m.merchant_name,m.address,p.name,u.nick_name,p.capacity,ss.purchase_price,addr.addressee,addr.addressee_phone 
+  	from t_order o
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join 
+  (SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss 
+  on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id = m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	inner join t_address addr on u.user_id = addr.user_id
+  inner join t_activity_product ap on ap.product_id = op.product_id
+	where o.order_id  = #{orderId,jdbcType=INTEGER}
+  and op.activity_id != 0
+	GROUP BY op.activity_id, p.product_id
+  having count(p.product_id)
+
+  </select>
+   <!-- 获取当日成交金额 -->
+  <select id="selectByOrderTurnover" resultMap="OrderCount" parameterType="com.techsun.famouswine.domain.CommonParam" >
+	select count(o.order_id) orderCount,sum(o.turnover) turnoverSum
+    from t_order o
+	inner join t_merchant m on o.merchant_id = m.merchant_id
+	where
+    o.merchant_id and 
+	o.status in (2,3,4,5)
+    and TO_DAYS(o.created_date)=TO_DAYS(#{createdMerchantDate,jdbcType=VARCHAR})
+  </select>
+  
+  
+  <!-- 根据日期获取前日数据 -->
+  <select id="selectByOrderAnteayerTurnover" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+	select o.turnover,o.status
+    from t_order o
+	inner join t_merchant m on o.merchant_id = m.merchant_id
+	where m.merchant_id  = #{merchantId,jdbcType=INTEGER} 
+	AND TO_DAYS(o.created_date)=TO_DAYS(#{createdMerchantDate,jdbcType=VARCHAR})
+  </select>
+
+  
+  
+    <select id="checkWine" resultMap="OrderProductExt" parameterType="java.lang.String" >
+	select m.merchant_id, u.user_id, p.name product_name, p.icon  product_icon,m.merchant_name, m.icon merchant_icon, ss.purchase_price,
+	op.* from t_order_product op
+inner join t_order o on op.order_id = o.order_id
+inner join t_user u on u.user_id = o.user_id
+inner join t_product p on op.product_id = p.product_id
+inner join 
+(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss 
+on p.product_id = ss.product_id
+inner join t_merchant m on m.merchant_id = o.merchant_id
+where op.qrcode = #{qrcode,jdbcType=VARCHAR}
+  </select>
+  <!-- 获取订单申诉列表 -->
+  <select id="selectOrderAppealList" resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+ 	select o.order_id,
+	p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,p.name,u.nick_name,p.capacity,ss.purchase_price,app.appeal_type,
+	app.content,app.result
+	from t_order o
+	inner join t_appeal a on o.order_id = a.order_id
+	inner join t_appeal app on o.order_id = app.order_id
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_merchant m on o.merchant_id
+	= m.merchant_id
+	inner join t_user u on o.user_id = u.user_id
+	where
+	o.merchant_id = #{merchantId,jdbcType=INTEGER} and 
+	op.activity_id = 0
+	GROUP BY o.order_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+	
+	UNION
+	
+	select o.order_id, p.product_id,op.activity_id,o.code,count(p.product_id) as
+	number,o.created_date,o.status,p.name,u.nick_name,p.capacity,ss.purchase_price,app.appeal_type,
+	app.content,app.result
+	from t_order o
+	inner join t_appeal app on o.order_id = app.order_id
+	inner join t_order_product op on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join
+	(SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on p.product_id = ss.product_id
+	inner join t_user u on o.user_id = u.user_id
+	inner join t_activity a on a.activity_id = op.activity_id
+	inner join t_activity_product ap on ap.activity_id = a.activity_id and
+	ap.product_id = op.product_id
+	where o.merchant_id = #{merchantId,jdbcType=INTEGER} and 
+	op.activity_id != 0
+	GROUP BY o.order_id, a.activity_id, p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

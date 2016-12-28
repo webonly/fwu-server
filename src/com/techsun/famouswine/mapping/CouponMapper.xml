@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.CouponMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Coupon" >
+    <id column="coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="coupon_type" property="couponType" jdbcType="BIT" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="coupon_value" property="couponValue" jdbcType="INTEGER" />
+    <result column="coupon_code" property="couponCode" jdbcType="VARCHAR" />
+    <result column="is_used" property="isUsed" jdbcType="BIT" />
+    <result column="expired_date" property="expiredDate" jdbcType="TIMESTAMP" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    coupon_id, name, coupon_type, user_id, coupon_value, coupon_code, is_used, expired_date, 
+    merchant_id, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_coupon
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_coupon
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Coupon" >
+    <selectKey resultType="java.lang.Integer" keyProperty="couponId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_coupon (name, coupon_type, user_id, 
+      coupon_value, coupon_code, is_used, 
+      expired_date, merchant_id, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{name,jdbcType=VARCHAR}, #{couponType,jdbcType=BIT}, #{userId,jdbcType=INTEGER}, 
+      #{couponValue,jdbcType=INTEGER}, #{couponCode,jdbcType=VARCHAR}, #{isUsed,jdbcType=BIT}, 
+      #{expiredDate,jdbcType=TIMESTAMP}, #{merchantId,jdbcType=INTEGER}, #{activated,jdbcType=BIT}, 
+      #{deleted,jdbcType=BIT}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Coupon" >
+    <selectKey resultType="java.lang.Integer" keyProperty="couponId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_coupon
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="couponType != null" >
+        coupon_type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="couponValue != null" >
+        coupon_value,
+      </if>
+      <if test="couponCode != null" >
+        coupon_code,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+      <if test="expiredDate != null" >
+        expired_date,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="couponType != null" >
+        #{couponType,jdbcType=BIT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="couponValue != null" >
+        #{couponValue,jdbcType=INTEGER},
+      </if>
+      <if test="couponCode != null" >
+        #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=BIT},
+      </if>
+      <if test="expiredDate != null" >
+        #{expiredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Coupon" >
+    update t_coupon
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="couponType != null" >
+        coupon_type = #{couponType,jdbcType=BIT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="couponValue != null" >
+        coupon_value = #{couponValue,jdbcType=INTEGER},
+      </if>
+      <if test="couponCode != null" >
+        coupon_code = #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=BIT},
+      </if>
+      <if test="expiredDate != null" >
+        expired_date = #{expiredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Coupon" >
+    update t_coupon
+    set name = #{name,jdbcType=VARCHAR},
+      coupon_type = #{couponType,jdbcType=BIT},
+      user_id = #{userId,jdbcType=INTEGER},
+      coupon_value = #{couponValue,jdbcType=INTEGER},
+      coupon_code = #{couponCode,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=BIT},
+      expired_date = #{expiredDate,jdbcType=TIMESTAMP},
+      merchant_id = #{merchantId,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </update>
+   <select id="selectCouponList" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+  	select
+  	<include refid="Base_Column_List" />
+  	from t_coupon 
+  	where user_id = #{userId,jdbcType=INTEGER}
+    and TO_DAYS(expired_date) >= TO_DAYS(NOW())
+  	
+  </select>
+  
+    <select id="selectBestCoupon" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
+  	select
+  	<include refid="Base_Column_List" />
+  	from t_coupon
+  	where user_id = #{userId,jdbcType=INTEGER}
+    and TO_DAYS(expired_date) >= TO_DAYS(NOW())
+    ORDER BY expired_date asc limit 1
+  </select> 
+  
+  
+</mapper>

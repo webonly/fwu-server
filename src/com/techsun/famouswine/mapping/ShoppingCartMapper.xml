@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.ShoppingCartMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.ShoppingCart" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <id column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="CartProduct" type="com.techsun.famouswine.domain.CartProduct" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <id column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_icon" property="productIcon" jdbcType="VARCHAR" />
+    <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    <result column="merchant_icon" property="merchantIcon" jdbcType="VARCHAR" />
+    <result column="purchase_price" property="purchasePrice" jdbcType="DOUBLE" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    user_id, merchant_id, activity_id, product_id, number, activated, deleted, created_date, 
+    updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.ShoppingCartKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shopping_cart
+    where user_id = #{userId,jdbcType=INTEGER}
+      and merchant_id = #{merchantId,jdbcType=INTEGER}
+      and activity_id = #{activityId,jdbcType=INTEGER}
+      and product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.techsun.famouswine.domain.ShoppingCartKey" >
+    delete from t_shopping_cart
+    where user_id = #{userId,jdbcType=INTEGER}
+      and merchant_id = #{merchantId,jdbcType=INTEGER}
+      and activity_id = #{activityId,jdbcType=INTEGER}
+      and product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.ShoppingCart" >
+    insert into t_shopping_cart (user_id, merchant_id, activity_id, 
+      product_id, number, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{userId,jdbcType=INTEGER}, #{merchantId,jdbcType=INTEGER}, #{activityId,jdbcType=INTEGER}, 
+      #{productId,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{activated,jdbcType=BIT}, 
+      #{deleted,jdbcType=BIT}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.ShoppingCart" >
+    insert into t_shopping_cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.ShoppingCart" >
+    update t_shopping_cart
+    <set >
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+      and merchant_id = #{merchantId,jdbcType=INTEGER}
+      and activity_id = #{activityId,jdbcType=INTEGER}
+      and product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.ShoppingCart" >
+    update t_shopping_cart
+    set number = #{number,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+      and merchant_id = #{merchantId,jdbcType=INTEGER}
+      and activity_id = #{activityId,jdbcType=INTEGER}
+      and product_id = #{productId,jdbcType=INTEGER}
+  </update>
+   
+  <select id="getShoppingCartByKey" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    SELECT
+    s.*
+    FROM
+    t_shopping_cart s
+    where s.user_id = #{userId,jdbcType=INTEGER}
+    and s.activity_id = #{activityId,jdbcType=INTEGER}
+    and s.merchant_id = #{merchantId,jdbcType=INTEGER}
+    and s.product_id = #{productId,jdbcType=BIT}
+  </select>
+ <!--  
+    <select id="getShoppingCartProduct" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+	SELECT
+	p.name product_name,p.icon  product_icon,m.merchant_name, m.icon merchant_icon, ss.purchase_price,
+	s.*
+	FROM
+	t_shopping_cart s
+	join t_product p
+	on p.product_id = s.pa_id
+	join t_merchant m
+	on m.merchant_id = s.merchant_id
+	join (SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss
+	on ss.product_id = s.pa_id
+	where s.user_id = #{userId,jdbcType=INTEGER}
+	and is_activity = 1
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  -->
+    
+<!--   <select id="getShoppingCartActivity" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    SELECT
+    p.*
+    FROM
+    t_shopping_cart s
+    join t_product p
+    on p.product_id = s.product_id
+    join t_merchant m
+    on m.merchant_id = s.merchant_id
+    where s.user_id = #{userId,jdbcType=INTEGER}
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select> -->
+      <select id="getShoppingCartList" resultMap="CartProduct" parameterType="com.techsun.famouswine.domain.CommonParam" >
+  select p.name product_name, p.icon  product_icon,m.merchant_name, m.icon merchant_icon, ss.purchase_price,
+	sc.*
+  from t_shopping_cart sc
+	inner join t_product p on sc.product_id = p.product_id
+	inner join 
+  (SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss 
+  on p.product_id = ss.product_id
+	inner join t_merchant m on sc.merchant_id = m.merchant_id
+	inner join t_user u on sc.user_id = u.user_id
+  where sc.activity_id = 0 and sc.user_id = #{userId,jdbcType=INTEGER}
+	GROUP BY p.product_id
+  having count(p.product_id)
+union
+
+  select p.name product_name, p.icon  product_icon,m.merchant_name, m.icon merchant_icon, ss.purchase_price,
+	sc.* 
+  from t_shopping_cart sc
+	inner join t_activity a on sc.activity_id = a.activity_id
+	inner join t_activity_product ap on ap.activity_id = a.activity_id
+  inner join t_product p on ap.product_id = p.product_id
+	inner join 
+  (SELECT s.* from
+	(select * from t_store order by update_date desc) s
+	join t_product p
+	on p.product_id = s.product_id
+	GROUP BY s.product_id) ss 
+  on p.product_id = ss.product_id
+	inner join t_merchant m on sc.merchant_id = m.merchant_id
+	inner join t_user u on sc.user_id = u.user_id
+  where sc.activity_id != 0 and sc.user_id = #{userId,jdbcType=INTEGER}
+	GROUP BY p.product_id
+  having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+</mapper>

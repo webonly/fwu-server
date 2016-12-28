@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.MerchantMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Merchant" >
+    <id column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="hw_username" property="hwUsername" jdbcType="VARCHAR" />
+    <result column="hw_password" property="hwPassword" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="certificate" property="certificate" jdbcType="VARCHAR" />
+    <result column="identification_card" property="identificationCard" jdbcType="VARCHAR" />
+    <result column="identification_behind" property="identificationBehind" jdbcType="VARCHAR" />
+    <result column="identification_hold" property="identificationHold" jdbcType="VARCHAR" />
+    <result column="identification_front" property="identificationFront" jdbcType="VARCHAR" />
+    <result column="business_licence" property="businessLicence" jdbcType="VARCHAR" />
+    <result column="integral" property="integral" jdbcType="INTEGER" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMap" type="com.techsun.famouswine.domain.DistanceMerchant" >
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    <result column="name" property="productName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="icon" property="productImageUrl" jdbcType="VARCHAR" />
+    <result column="merchantImage" property="merchantImageUrl" jdbcType="VARCHAR" />
+    <result column="mechantScore" property="merchantScore" jdbcType="DOUBLE" />
+    <result column="merchantNum" property="commentNum" jdbcType="INTEGER" />
+    <result column="distance" property="distance" jdbcType="INTEGER" />
+    <result column="sales" property="sales" jdbcType="INTEGER" />
+    <result column="purchase_price" property="price" jdbcType="DOUBLE" />
+    <result column="latitude" property="userLat" jdbcType="DOUBLE" />
+    <result column="longitude" property="userLon" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    merchant_id, merchant_name, user_name, password, hw_username, hw_password, icon, 
+    manager, age, address, phone, mobile, certificate, identification_card, identification_behind, 
+    identification_hold, identification_front, business_licence, integral, latitude, 
+    longitude, description, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_merchant
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_merchant
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Merchant" >
+    <selectKey resultType="java.lang.Integer" keyProperty="merchantId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_merchant (merchant_name, user_name, password, 
+      hw_username, hw_password, icon, 
+      manager, age, address, 
+      phone, mobile, certificate, 
+      identification_card, identification_behind, 
+      identification_hold, identification_front, 
+      business_licence, integral, latitude, 
+      longitude, description, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{merchantName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{hwUsername,jdbcType=VARCHAR}, #{hwPassword,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{manager,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{certificate,jdbcType=VARCHAR}, 
+      #{identificationCard,jdbcType=VARCHAR}, #{identificationBehind,jdbcType=VARCHAR}, 
+      #{identificationHold,jdbcType=VARCHAR}, #{identificationFront,jdbcType=VARCHAR}, 
+      #{businessLicence,jdbcType=VARCHAR}, #{integral,jdbcType=INTEGER}, #{latitude,jdbcType=DOUBLE}, 
+      #{longitude,jdbcType=DOUBLE}, #{description,jdbcType=VARCHAR}, #{activated,jdbcType=BIT}, 
+      #{deleted,jdbcType=BIT}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Merchant" >
+    <selectKey resultType="java.lang.Integer" keyProperty="merchantId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_merchant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="merchantName != null" >
+        merchant_name,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="hwUsername != null" >
+        hw_username,
+      </if>
+      <if test="hwPassword != null" >
+        hw_password,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="certificate != null" >
+        certificate,
+      </if>
+      <if test="identificationCard != null" >
+        identification_card,
+      </if>
+      <if test="identificationBehind != null" >
+        identification_behind,
+      </if>
+      <if test="identificationHold != null" >
+        identification_hold,
+      </if>
+      <if test="identificationFront != null" >
+        identification_front,
+      </if>
+      <if test="businessLicence != null" >
+        business_licence,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="merchantName != null" >
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hwUsername != null" >
+        #{hwUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="hwPassword != null" >
+        #{hwPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null" >
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationCard != null" >
+        #{identificationCard,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationBehind != null" >
+        #{identificationBehind,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationHold != null" >
+        #{identificationHold,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationFront != null" >
+        #{identificationFront,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicence != null" >
+        #{businessLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Merchant" >
+    update t_merchant
+    <set >
+      <if test="merchantName != null" >
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hwUsername != null" >
+        hw_username = #{hwUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="hwPassword != null" >
+        hw_password = #{hwPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null" >
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationCard != null" >
+        identification_card = #{identificationCard,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationBehind != null" >
+        identification_behind = #{identificationBehind,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationHold != null" >
+        identification_hold = #{identificationHold,jdbcType=VARCHAR},
+      </if>
+      <if test="identificationFront != null" >
+        identification_front = #{identificationFront,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicence != null" >
+        business_licence = #{businessLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Merchant" >
+    update t_merchant
+    set merchant_name = #{merchantName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      hw_username = #{hwUsername,jdbcType=VARCHAR},
+      hw_password = #{hwPassword,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      certificate = #{certificate,jdbcType=VARCHAR},
+      identification_card = #{identificationCard,jdbcType=VARCHAR},
+      identification_behind = #{identificationBehind,jdbcType=VARCHAR},
+      identification_hold = #{identificationHold,jdbcType=VARCHAR},
+      identification_front = #{identificationFront,jdbcType=VARCHAR},
+      business_licence = #{businessLicence,jdbcType=VARCHAR},
+      integral = #{integral,jdbcType=INTEGER},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      description = #{description,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByMerchantPhone" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from t_merchant
+    where phone = #{merchantPhone,jdbcType=INTEGER}
+  </select>
+  
+ 
+  
+  <select id="getMerchantInfo" resultMap="ResultMap" parameterType="java.lang.Integer" >
+    select m.merchant_id,m.merchant_name,m.address,i.image_url,count(op.product_id) as sales
+	from t_merchant m 
+	inner join t_image i on m.merchant_id = i.user_id
+	inner join t_order o on m.merchant_id = o.merchant_id
+	inner join t_order_product op on o.order_id = op.order_id
+	where m.merchant_id = #{merchantId,jdbcType=INTEGER}
+	group by m.merchant_id
+  </select>
+  
+    <select id="getMerchantByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_merchant
+    where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  
+  
+   <select id="searchByMerchantName" resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.DistanceMerchant" >
+     SELECT m.merchant_id,m.merchant_name,m.address,m.icon,s.sales,pr.product_id,p.name,s.purchase_price,
+	round(6378.138*2*asin(sqrt(pow(sin( (#{userLat,jdbcType=DOUBLE}*pi()/180-m.latitude*pi()/180)/2),2)
+  	+cos(#{userLat,jdbcType=DOUBLE}*pi()/180)*cos(m.latitude*pi()/180)* pow(sin( (m.longitude*pi()/180-#{userLon,jdbcType=DOUBLE}*pi()/180)/2),2)))*1000) AS distance
+	from t_merchant m
+	inner join t_store s on m.merchant_id = s.merchant_id  
+	inner join t_product_recommend pr on m.merchant_id = pr.merchant_id
+	inner join t_product p on pr.product_id = p.product_id 
+	
+	group by m.merchant_id
+	
+	limit #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    
+
+  </select>
+  
+  
+  <select id="getAllMerchant" resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.DistanceMerchant" >
+    SELECT m.merchant_id,m.merchant_name,pr.product_id,p.name,m.address,p.icon,s.purchase_price,s.sales,m.icon as merchantImage,
+	round(6378.138*2*asin(sqrt(pow(sin( (#{userLat,jdbcType=DOUBLE}*pi()/180-m.latitude*pi()/180)/2),2)+cos(#{userLat,jdbcType=DOUBLE}*pi()/180)*cos(m.latitude*pi()/180)* pow(sin( (#{userLon,jdbcType=DOUBLE}*pi()/180-m.longitude*pi()/180)/2),2)))*1000) as distance
+	,e.merchantScore,e.merchantNum
+	from t_merchant m
+	left join (select o.merchant_id,avg(e.merchant_service) as merchantScore,count(o.merchant_id) as merchantNum
+							from t_evaluate e 
+							join t_order o on e.order_id = o.order_id
+							group by o.merchant_id) as e on e.merchant_id = m.merchant_id
+	left join t_product_recommend pr on m.merchant_id = pr.merchant_id
+	left join t_product p on pr.product_id = p.product_id
+	left join t_store s on p.product_id = s.product_id
+	<if test="merchantName != null" >
+        where m.merchant_name LIKE CONCAT(CONCAT('%', #{merchantName, jdbcType=VARCHAR}),'%')
+    </if>
+	group by m.merchant_id
+    <if test="distance &lt;= 10001" >
+        having distance &lt;#{distance,jdbcType=INTEGER}
+    </if>
+	<if test="distance &gt; 10001" >
+        having distance &gt;#{distance,jdbcType=INTEGER}
+    </if>
+    <if test="sales == 0" >
+        order by distance desc
+    </if> 
+    <if test="sales == 1" >
+        order by s.sales desc
+    </if>
+    <if test="sales == 2" >
+        order by merchantScore desc
+    </if>    
+   	limit #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select> 
+  
+  <select id="selectByMerchantList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from t_merchant
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </select>
+    
+  
+   <select id="getMerchantNameList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select * from t_merchant where merchant_name LIKE CONCAT(CONCAT('%', #{merchantName, jdbcType=VARCHAR}),'%')
+
+  </select>
+  
+</mapper>

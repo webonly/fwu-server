@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Comment" >
+    <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_score" property="productScore" jdbcType="DOUBLE" />
+    <result column="product_content" property="productContent" jdbcType="VARCHAR" />
+    <result column="merchant_score" property="merchantScore" jdbcType="DOUBLE" />
+    <result column="merchant_content" property="merchantContent" jdbcType="VARCHAR" />
+    <result column="serve_score" property="serveScore" jdbcType="DOUBLE" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMap" type="com.techsun.famouswine.domain.CommonParam" >
+    <id column="comment_id" property="commonParamId" jdbcType="INTEGER" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="name" property="productName" jdbcType="VARCHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    comment_id, user_id, merchant_id, product_id, product_score, product_content, merchant_score, 
+    merchant_content, serve_score, activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Comment" >
+    <selectKey resultType="java.lang.Integer" keyProperty="commentId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_comment (user_id, merchant_id, product_id, 
+      product_score, product_content, merchant_score, 
+      merchant_content, serve_score, activated, 
+      deleted, updated_date, created_date
+      )
+    values (#{userId,jdbcType=INTEGER}, #{merchantId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{productScore,jdbcType=INTEGER}, #{productContent,jdbcType=VARCHAR}, #{merchantScore,jdbcType=INTEGER}, 
+      #{merchantContent,jdbcType=VARCHAR}, #{serveScore,jdbcType=INTEGER}, #{activated,jdbcType=BIT}, 
+      #{deleted,jdbcType=BIT}, #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Comment" >
+    <selectKey resultType="java.lang.Integer" keyProperty="commentId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productScore != null" >
+        product_score,
+      </if>
+      <if test="productContent != null" >
+        product_content,
+      </if>
+      <if test="merchantScore != null" >
+        merchant_score,
+      </if>
+      <if test="merchantContent != null" >
+        merchant_content,
+      </if>
+      <if test="serveScore != null" >
+        serve_score,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productScore != null" >
+        #{productScore,jdbcType=INTEGER},
+      </if>
+      <if test="productContent != null" >
+        #{productContent,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantScore != null" >
+        #{merchantScore,jdbcType=INTEGER},
+      </if>
+      <if test="merchantContent != null" >
+        #{merchantContent,jdbcType=VARCHAR},
+      </if>
+      <if test="serveScore != null" >
+        #{serveScore,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Comment" >
+    update t_comment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productScore != null" >
+        product_score = #{productScore,jdbcType=INTEGER},
+      </if>
+      <if test="productContent != null" >
+        product_content = #{productContent,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantScore != null" >
+        merchant_score = #{merchantScore,jdbcType=INTEGER},
+      </if>
+      <if test="merchantContent != null" >
+        merchant_content = #{merchantContent,jdbcType=VARCHAR},
+      </if>
+      <if test="serveScore != null" >
+        serve_score = #{serveScore,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Comment" >
+    update t_comment
+    set user_id = #{userId,jdbcType=INTEGER},
+      merchant_id = #{merchantId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      product_score = #{productScore,jdbcType=INTEGER},
+      product_content = #{productContent,jdbcType=VARCHAR},
+      merchant_score = #{merchantScore,jdbcType=INTEGER},
+      merchant_content = #{merchantContent,jdbcType=VARCHAR},
+      serve_score = #{serveScore,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <select id="getCommentByParam" resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    select c.comment_id, u.nick_name, p.name, c.content,m.merchant_name, c.created_date  
+    from t_comment c
+    left join t_user u on c.user_id = u.user_id
+    left join t_product p on c.product_id = p.product_id
+    left join t_merchant m on c.merchant_id = m.merchant_id
+    where c.product_id = #{productId,jdbcType=INTEGER}
+    order by c.created_date desc
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}  
+  </select>
+</mapper>

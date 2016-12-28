@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.OrderProductMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.OrderProduct" >
+    <id column="op_id" property="opId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="qrcode" property="qrcode" jdbcType="VARCHAR" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMap" type="com.techsun.famouswine.domain.OrderResult">
+    <id column="order_id" jdbcType="INTEGER" property="orderResultId" />
+    <result column="real_name" jdbcType="VARCHAR" property="userName" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="name" jdbcType="VARCHAR" property="productName" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="purchase_price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="number" property="productNum" jdbcType="INTEGER" />
+    <result column="image_url" jdbcType="VARCHAR" property="productUrl" />
+    <result column="distribution" jdbcType="VARCHAR" property="distribution" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="arrival_time" jdbcType="TIMESTAMP" property="arrivalTime" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    op_id, order_id, activity_id, product_id, qrcode, batch, activated, deleted, created_date, 
+    updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_product
+    where op_id = #{opId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_order_product
+    where op_id = #{opId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.OrderProduct" >
+    <selectKey resultType="java.lang.Integer" keyProperty="opId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_product (order_id, activity_id, product_id, 
+      qrcode, batch, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{activityId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{qrcode,jdbcType=VARCHAR}, #{batch,jdbcType=VARCHAR}, #{activated,jdbcType=BIT}, 
+      #{deleted,jdbcType=BIT}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.OrderProduct" >
+    <selectKey resultType="java.lang.Integer" keyProperty="opId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="qrcode != null" >
+        qrcode,
+      </if>
+      <if test="batch != null" >
+        batch,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="qrcode != null" >
+        #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="batch != null" >
+        #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.OrderProduct" >
+    update t_order_product
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="qrcode != null" >
+        qrcode = #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="batch != null" >
+        batch = #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where op_id = #{opId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.OrderProduct" >
+    update t_order_product
+    set order_id = #{orderId,jdbcType=INTEGER},
+      activity_id = #{activityId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      qrcode = #{qrcode,jdbcType=VARCHAR},
+      batch = #{batch,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where op_id = #{opId,jdbcType=INTEGER}
+  </update>
+  <select id="findOrderProductList" resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    select m.merchant_name,i.image_url,p.name,s.purchase_price,o.distribution,
+			 o.arrival_time,o.content,u.real_name,u.mobile,a.address,count(name) as number
+	from t_order_product op 
+	inner join t_order o on o.order_id = op.order_id
+	inner join t_product p on op.product_id = p.product_id
+	inner join t_user u on o.user_id = u.user_id
+	inner join t_merchant m on o.merchant_id = m.merchant_id
+	inner join t_image i on p.product_id = i.product_id
+	inner join t_store s on p.product_id = s.product_id
+	inner join t_address a on u.user_id = a.user_id
+    where op.order_id = #{productId,jdbcType=INTEGER} and 
+    	  u.user_id = #{userId,jdbcType=INTEGER}
+   	group by p.name
+  </select>
+</mapper>

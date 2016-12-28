@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Product" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="base_price" property="basePrice" jdbcType="DECIMAL" />
+    <result column="increased_price" property="increasedPrice" jdbcType="DECIMAL" />
+    <result column="reduced_price" property="reducedPrice" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="brand" property="brand" jdbcType="INTEGER" />
+    <result column="flavor" property="flavor" jdbcType="VARCHAR" />
+    <result column="production_place" property="productionPlace" jdbcType="VARCHAR" />
+    <result column="capacity" property="capacity" jdbcType="VARCHAR" />
+    <result column="degree" property="degree" jdbcType="INTEGER" />
+    <result column="winery" property="winery" jdbcType="VARCHAR" />
+    <result column="material" property="material" jdbcType="VARCHAR" />
+    <result column="storage_condition" property="storageCondition" jdbcType="VARCHAR" />
+    <result column="specifications" property="specifications" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMap" type="com.techsun.famouswine.domain.ProductEntity" >
+    <id column="product_id" property="productEntityId" jdbcType="INTEGER" />
+    <result column="name" property="productName" jdbcType="VARCHAR" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="description" property="content" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="icon" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="purchase_price" property="price" jdbcType="DECIMAL" />
+    <result column="sales" property="sales" jdbcType="INTEGER" />
+    <result column="productScore" property="commentNum" jdbcType="INTEGER" />
+    <result column="distance" property="distance" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, name, icon, base_price, increased_price, reduced_price, type, brand, 
+    flavor, production_place, capacity, degree, winery, material, storage_condition, 
+    specifications, description, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Product" >
+    <selectKey resultType="java.lang.Integer" keyProperty="productId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product (name, icon, base_price, 
+      increased_price, reduced_price, type, 
+      brand, flavor, production_place, 
+      capacity, degree, winery, 
+      material, storage_condition, specifications, 
+      description, activated, deleted, 
+      created_date, updated_date)
+    values (#{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{basePrice,jdbcType=DECIMAL}, 
+      #{increasedPrice,jdbcType=DECIMAL}, #{reducedPrice,jdbcType=DECIMAL}, #{type,jdbcType=INTEGER}, 
+      #{brand,jdbcType=INTEGER}, #{flavor,jdbcType=VARCHAR}, #{productionPlace,jdbcType=VARCHAR}, 
+      #{capacity,jdbcType=VARCHAR}, #{degree,jdbcType=INTEGER}, #{winery,jdbcType=VARCHAR}, 
+      #{material,jdbcType=VARCHAR}, #{storageCondition,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{activated,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Product" >
+    <selectKey resultType="java.lang.Integer" keyProperty="productId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="basePrice != null" >
+        base_price,
+      </if>
+      <if test="increasedPrice != null" >
+        increased_price,
+      </if>
+      <if test="reducedPrice != null" >
+        reduced_price,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="orderCode != null" >
+        order_code,
+      </if>
+      <if test="flavor != null" >
+        flavor,
+      </if>
+      <if test="productionPlace != null" >
+        production_place,
+      </if>
+      <if test="capacity != null" >
+        capacity,
+      </if>
+      <if test="degree != null" >
+        degree,
+      </if>
+      <if test="winery != null" >
+        winery,
+      </if>
+      <if test="material != null" >
+        material,
+      </if>
+      <if test="storageCondition != null" >
+        storage_condition,
+      </if>
+      <if test="specifications != null" >
+        specifications,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="basePrice != null" >
+        #{basePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="increasedPrice != null" >
+        #{increasedPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="reducedPrice != null" >
+        #{reducedPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=INTEGER},
+      </if>
+      <if test="flavor != null" >
+        #{flavor,jdbcType=VARCHAR},
+      </if>
+      <if test="productionPlace != null" >
+        #{productionPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null" >
+        #{capacity,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=INTEGER},
+      </if>
+      <if test="winery != null" >
+        #{winery,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null" >
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="storageCondition != null" >
+        #{storageCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null" >
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Product" >
+    update t_product
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="basePrice != null" >
+        base_price = #{basePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="increasedPrice != null" >
+        increased_price = #{increasedPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="reducedPrice != null" >
+        reduced_price = #{reducedPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=INTEGER},
+      </if>
+      <if test="flavor != null" >
+        flavor = #{flavor,jdbcType=VARCHAR},
+      </if>
+      <if test="productionPlace != null" >
+        production_place = #{productionPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null" >
+        capacity = #{capacity,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        degree = #{degree,jdbcType=INTEGER},
+      </if>
+      <if test="winery != null" >
+        winery = #{winery,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null" >
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="storageCondition != null" >
+        storage_condition = #{storageCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null" >
+        specifications = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Product" >
+    update t_product
+    set name = #{name,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      base_price = #{basePrice,jdbcType=DECIMAL},
+      increased_price = #{increasedPrice,jdbcType=DECIMAL},
+      reduced_price = #{reducedPrice,jdbcType=DECIMAL},
+      type = #{type,jdbcType=INTEGER},
+      brand = #{brand,jdbcType=INTEGER},
+      flavor = #{flavor,jdbcType=VARCHAR},
+      production_place = #{productionPlace,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=INTEGER},
+      winery = #{winery,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      storage_condition = #{storageCondition,jdbcType=VARCHAR},
+      specifications = #{specifications,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <!-- 按名称查询 -->
+  <select id="findProductByName" resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.CommonParam">    
+    select  p.product_id,p.name,p.icon,s.purchase_price,m.merchant_id,
+  	round(6378.138*2*asin(sqrt(pow(sin( (#{userLat,jdbcType=DOUBLE}*pi()/180-m.latitude*pi()/180)/2),2)
+  	+cos(#{userLat,jdbcType=DOUBLE}*pi()/180)*cos(m.latitude*pi()/180)* pow(sin( (m.longitude*pi()/180-#{userLon,jdbcType=DOUBLE}*pi()/180)/2),2)))*1000) AS distance
+  	,count(op.product_id) as sales,avg(e.product_agreement) as productScore
+    from t_product p 
+    inner join t_store s on p.product_id=s.product_id
+    inner join t_merchant m on s.merchant_id = m.merchant_id
+    left join t_order_product op on op.product_id = p.product_id
+		left join t_evaluate e on op.order_id = e.order_id
+    where p.name LIKE CONCAT(CONCAT('%', #{productName, jdbcType=VARCHAR}),'%')
+    <if test="startPrice != 0 and endPrice != 0" >   
+        and s.purchase_price &lt;= #{endPrice, jdbcType=DOUBLE} 
+        and s.purchase_price &gt;= #{startPrice, jdbcType=DOUBLE}  
+    </if>
+    group by p.product_id
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  <select id="findMerchantProductByName" resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.CommonParam">
+	select  p.product_id,p.name,p.icon,s.purchase_price,m.merchant_id,
+  	count(op.product_id) as sales,avg(e.product_agreement) as productScore
+    from t_product p 
+    inner join t_store s on p.product_id=s.product_id
+    inner join t_merchant m on s.merchant_id = m.merchant_id
+    left join t_order_product op on op.product_id = p.product_id
+	left join t_evaluate e on op.order_id = e.order_id
+    where p.name LIKE CONCAT(CONCAT('%', #{productName, jdbcType=VARCHAR}),'%')
+    	  and s.merchant_id = #{merchantId,jdbcType=INTEGER}
+    group by p.product_id
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  <!-- 按类型查询 -->
+  <select id="findProductByType" resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.CommonParam">
+  	select  p.product_id,p.name,p.icon,s.merchant_id,s.purchase_price,s.sales,p.type,avg(e.product_agreement) as productScore
+    from t_product p 
+    inner join t_store s on p.product_id=s.product_id
+    inner join t_category c on p.type=c.category_id
+	inner join t_order_product op on op.product_id = p.product_id
+	left join t_evaluate e on e.order_id = op.order_id
+	where s.merchant_id = #{merchantId,jdbcType=INTEGER}
+	<if test="type != 0 " >   
+        and p.type=#{type,jdbcType=INTEGER}  
+    </if>
+	group by p.product_id
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}  
+  </select>
+  <!-- 按分价格、销量倒序查询 -->
+  <select id="getProductByParam" resultMap="ResultMap" parameterType="com.techsun.famouswine.domain.CommonParam">
+	select  p.product_id,p.name,p.icon,p.type,s.purchase_price,s.sales,avg(e.product_agreement) as productScore
+    from t_product p 
+    inner join t_store s on p.product_id=s.product_id
+    inner join t_category c on p.type=c.category_id
+	left join t_order_product op on p.product_id = op.product_id
+	left join t_evaluate e on op.order_id = e.order_id
+	<if test="type != 0 ">
+    	where p.type = #{type,jdbcType=INTEGER}
+    </if>
+	group by p.product_id
+	having count(p.product_id)
+	limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  <!-- 按id查询商品详情 -->
+  	<select id="findProductDetail" resultMap="ResultMap" parameterType="java.lang.Integer">
+  	select  p.product_id,p.name,s.merchant_id,p.icon,s.purchase_price,s.sales,p.description
+    from t_product p 
+    inner join t_store s on p.product_id=s.product_id
+    where p.product_id =#{productId,jdbcType=INTEGER}  
+  </select>
+</mapper>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Message" >
+    <id column="message_id" property="messageId" jdbcType="INTEGER" />
+    <result column="from_id" property="fromId" jdbcType="VARCHAR" />
+    <result column="to_id" property="toId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="MessageUserMap" type="com.techsun.famouswine.domain.MessageUser" >
+    <id column="message_id" property="messageId" jdbcType="INTEGER" />   
+        <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="from_user_id" property="fromUserId" jdbcType="INTEGER" />
+    <result column="to_user_id" property="toUserId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="read" property="read" jdbcType="BIT" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    message_id, from_id, to_id, type, content, activated, deleted, create_date, update_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Message" >
+    <selectKey resultType="java.lang.Integer" keyProperty="messageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_message (from_id, to_id, type, 
+      content, activated, deleted, 
+      create_date, update_date)
+    values (#{fromId,jdbcType=VARCHAR}, #{toId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{activated,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Message" >
+    <selectKey resultType="java.lang.Integer" keyProperty="messageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fromId != null" >
+        from_id,
+      </if>
+      <if test="toId != null" >
+        to_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fromId != null" >
+        #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="toId != null" >
+        #{toId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Message" >
+    update t_message
+    <set >
+      <if test="fromId != null" >
+        from_id = #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="toId != null" >
+        to_id = #{toId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Message" >
+    update t_message
+    set from_id = #{fromId,jdbcType=VARCHAR},
+      to_id = #{toId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <select id="getMessageList" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select  message_id, from_id, to_id, type, content, activated, deleted, create_date, update_date
+    from t_message 
+    where from_id =#{fromId, jdbcType=VARCHAR} or to_id = #{toId,jdbcType=VARCHAR}
+	order by create_date desc 
+  </select>
+  <select id="selectMessageByToUserId" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.MessageType" >
+    select 
+    *
+    from t_message
+    where to_user_id = #{toUserId,jdbcType=INTEGER} and type = #{type,jdbcType=INTEGER}
+    ORDER BY update_date asc
+  </select>
+  
+  <select id="selectMessageUserOnConversation" resultMap="MessageUserMap" parameterType="com.techsun.famouswine.domain.ConversationUser" >
+    select 
+    m.*, u.user_id, u.user_name, u.user_name, u.icon
+    from t_message m
+    left join t_user u
+    on m.to_user_id = u.user_id
+	where m.to_user_id = #{myUserId,jdbcType=INTEGER}
+	and m.from_user_id = #{friendUserId,jdbcType=INTEGER}
+	and type =0
+    union 
+    select 
+    m.*, u.user_id, u.user_name, u.user_name, u.icon
+    from t_message m
+    left join t_user u
+    on m.from_user_id = u.user_id
+	where m.from_user_id = #{myUserId,jdbcType=INTEGER}
+	and m.to_user_id = #{friendUserId,jdbcType=INTEGER}	
+	and type = 0
+    ORDER BY update_date asc
+  </select>
+  
+ <select id="selectMessageUser" resultMap="MessageUserMap" parameterType="java.lang.Integer">
+    select 
+    m.*, u.user_id, u.user_name, u.user_name, u.icon
+    from t_message m
+    left join t_user u
+    on m.to_user_id = u.user_id
+	where m.to_user_id = #{toUserId,jdbcType=INTEGER}
+	and type = 0
+	GROUP BY m.from_user_id
+	ORDER BY m.update_date desc
+
+  </select>
+   <select id="selectSystemMessage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    m.*
+    from t_message m
+	where m.to_user_id = #{userId,jdbcType=INTEGER}
+	and type != 0
+	GROUP BY m.type
+	ORDER BY m.type
+  </select>
+     <select id="selectSystemMessageByType" resultMap="MessageUserMap" parameterType="com.techsun.famouswine.domain.CommonParam">
+    select 
+    m.*, u.user_id, u.user_name, u.user_name, u.icon
+    from t_message m
+    left join t_user u
+    on m.from_user_id = u.user_id
+	where m.to_user_id = #{userId,jdbcType=INTEGER}
+	and m.type = #{type,jdbcType=INTEGER}
+	ORDER BY m.update_date desc
+  </select>
+</mapper>

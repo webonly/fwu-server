@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.CommunityMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Community" >
+    <id column="community_id" property="communityId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="updata_date" property="updataDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    community_id, name, type, image_url, activated, deleted, create_date, updata_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_knowledge_community
+    where community_id = #{communityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_knowledge_community
+    where community_id = #{communityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Community" >
+    <selectKey resultType="java.lang.Integer" keyProperty="communityId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_knowledge_community (name, type, image_url, 
+      activated, deleted, create_date, 
+      updata_date)
+    values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{activated,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updataDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Community" >
+    <selectKey resultType="java.lang.Integer" keyProperty="communityId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_knowledge_community
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updataDate != null" >
+        updata_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updataDate != null" >
+        #{updataDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Community" >
+    update t_knowledge_community
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updataDate != null" >
+        updata_date = #{updataDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where community_id = #{communityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Community" >
+    update t_knowledge_community
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      updata_date = #{updataDate,jdbcType=TIMESTAMP}
+    where community_id = #{communityId,jdbcType=INTEGER}
+  </update>
+  <select id="getKnowledgeCommunity" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    select community_id, name, type, image_url, activated, deleted, create_date, updata_date 
+    from t_knowledge_community
+    where type = #{type,jdbcType=INTEGER}
+    order by create_date desc
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

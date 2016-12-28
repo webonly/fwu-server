@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.ActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Activity" >
+    <id column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="BIT" />
+    <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+    <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="derate" property="derate" jdbcType="DECIMAL" />
+    <result column="derate_percent" property="deratePercent" jdbcType="DECIMAL" />
+    <result column="start_datetime" property="startDatetime" jdbcType="TIMESTAMP" />
+    <result column="end_datetime" property="endDatetime" jdbcType="TIMESTAMP" />
+    <result column="integral" property="integral" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activity_id, name, type, total_price, sale_price, amount, derate, derate_percent, 
+    start_datetime, end_datetime, integral, description, activated, deleted, created_date, 
+    updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_activity
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_activity
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Activity" >
+    <selectKey resultType="java.lang.Integer" keyProperty="activityId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_activity (name, type, total_price, 
+      sale_price, amount, derate, 
+      derate_percent, start_datetime, end_datetime, 
+      integral, description, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{totalPrice,jdbcType=DECIMAL}, 
+      #{salePrice,jdbcType=DECIMAL}, #{amount,jdbcType=INTEGER}, #{derate,jdbcType=DECIMAL}, 
+      #{deratePercent,jdbcType=DECIMAL}, #{startDatetime,jdbcType=TIMESTAMP}, #{endDatetime,jdbcType=TIMESTAMP}, 
+      #{integral,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{activated,jdbcType=BIT}, 
+      #{deleted,jdbcType=BIT}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Activity" >
+    <selectKey resultType="java.lang.Integer" keyProperty="activityId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="salePrice != null" >
+        sale_price,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="derate != null" >
+        derate,
+      </if>
+      <if test="deratePercent != null" >
+        derate_percent,
+      </if>
+      <if test="startDatetime != null" >
+        start_datetime,
+      </if>
+      <if test="endDatetime != null" >
+        end_datetime,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="salePrice != null" >
+        #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="derate != null" >
+        #{derate,jdbcType=DECIMAL},
+      </if>
+      <if test="deratePercent != null" >
+        #{deratePercent,jdbcType=DECIMAL},
+      </if>
+      <if test="startDatetime != null" >
+        #{startDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDatetime != null" >
+        #{endDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Activity" >
+    update t_activity
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="salePrice != null" >
+        sale_price = #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="derate != null" >
+        derate = #{derate,jdbcType=DECIMAL},
+      </if>
+      <if test="deratePercent != null" >
+        derate_percent = #{deratePercent,jdbcType=DECIMAL},
+      </if>
+      <if test="startDatetime != null" >
+        start_datetime = #{startDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDatetime != null" >
+        end_datetime = #{endDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Activity" >
+    update t_activity
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=BIT},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      sale_price = #{salePrice,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=INTEGER},
+      derate = #{derate,jdbcType=DECIMAL},
+      derate_percent = #{deratePercent,jdbcType=DECIMAL},
+      start_datetime = #{startDatetime,jdbcType=TIMESTAMP},
+      end_datetime = #{endDatetime,jdbcType=TIMESTAMP},
+      integral = #{integral,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+  
+ <select id="getAllActivityList" resultMap="BaseResultMap" >
+    SELECT
+    a.*
+    FROM
+    t_activity a
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+   <select id="getActivityListByType" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    SELECT
+    a.*
+    FROM
+    t_activity a
+    where a.type = #{type,jdbcType=INTEGER}
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  
+     <select id="getActivityListByMerchantId" resultMap="BaseResultMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    SELECT
+    a.*
+    FROM
+    t_activity a
+    INNER JOIN t_merchant_activity ta
+    on a.activity_id = ta.activity_id
+    where ta.merchant_id = #{merchantId,jdbcType=INTEGER}
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+
+</mapper>

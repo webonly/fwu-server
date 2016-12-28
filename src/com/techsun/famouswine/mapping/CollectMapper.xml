@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.CollectMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Collect" >
+    <id column="collect_id" property="collectId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="collected_id" property="collectedId" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+    <resultMap id="ProductMap" type="com.techsun.famouswine.domain.Product" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="flavor" property="flavor" jdbcType="VARCHAR" />
+    <result column="production_place" property="productionPlace" jdbcType="VARCHAR" />
+    <result column="capacity" property="capacity" jdbcType="VARCHAR" />
+    <result column="degree" property="degree" jdbcType="INTEGER" />
+    <result column="winery" property="winery" jdbcType="VARCHAR" />
+    <result column="material" property="material" jdbcType="VARCHAR" />
+    <result column="storage_condition" property="storageCondition" jdbcType="VARCHAR" />
+    <result column="specifications" property="specifications" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+    <resultMap id="MerchantMap" type="com.techsun.famouswine.domain.Merchant" >
+    <id column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="INTEGER" />
+    <result column="certificate" property="certificate" jdbcType="VARCHAR" />
+    <result column="business_licence" property="businessLicence" jdbcType="VARCHAR" />
+    <result column="actived" property="actived" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    collect_id, user_id, type, collected_id, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_collect
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_collect
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Collect" >
+    <selectKey resultType="java.lang.Integer" keyProperty="collectId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_collect (user_id, type, collected_id, 
+      activated, deleted, created_date, 
+      updated_date)
+    values (#{userId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{collectedId,jdbcType=INTEGER}, 
+      #{activated,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{createdDate,jdbcType=TIMESTAMP}, 
+      #{updatedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Collect" >
+    <selectKey resultType="java.lang.Integer" keyProperty="collectId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_collect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="collectedId != null" >
+        collected_id,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="collectedId != null" >
+        #{collectedId,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Collect" >
+    update t_collect
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="collectedId != null" >
+        collected_id = #{collectedId,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Collect" >
+    update t_collect
+    set user_id = #{userId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      collected_id = #{collectedId,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </update>
+  
+   <select id="getMyCollectProduct" resultMap="ProductMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    SELECT
+    p.*
+    FROM
+    t_collect c
+    join t_product p
+    on c.collected_id = p.product_id
+    where c.type = 1
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getMyCollectMerchant" resultMap="MerchantMap" parameterType="com.techsun.famouswine.domain.CommonParam" >
+    SELECT
+    m.*
+    FROM
+    t_collect c
+    join t_merchant m
+    on c.collected_id = m.merchant_id
+    where c.type = 2
+    limit #{startNum,jdbcType=INTEGER},#{endNum,jdbcType=INTEGER}
+  </select>
+</mapper>

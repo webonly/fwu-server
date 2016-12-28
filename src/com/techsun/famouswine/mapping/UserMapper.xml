@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="hw_username" property="hwUsername" jdbcType="VARCHAR" />
+    <result column="hw_password" property="hwPassword" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="drink_age" property="drinkAge" jdbcType="INTEGER" />
+    <result column="drinking_capacity" property="drinkingCapacity" jdbcType="REAL" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="integral" property="integral" jdbcType="INTEGER" />
+    <result column="accumulated_integral" property="accumulatedIntegral" jdbcType="INTEGER" />
+    <result column="invited_code" property="invitedCode" jdbcType="INTEGER" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_name, password, hw_username, hw_password, icon, nick_name, real_name, 
+    drink_age, drinking_capacity, level, hobby, integral, accumulated_integral, invited_code, 
+    sign, gender, birthday, mobile, email, address, latitude, longitude, city, profession, 
+    company, activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user (user_name, password, hw_username, 
+      hw_password, icon, nick_name, 
+      real_name, drink_age, drinking_capacity, 
+      level, hobby, integral, 
+      accumulated_integral, invited_code, sign, 
+      gender, birthday, mobile, 
+      email, address, latitude, 
+      longitude, city, profession, 
+      company, activated, deleted, 
+      updated_date, created_date)
+    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{hwUsername,jdbcType=VARCHAR}, 
+      #{hwPassword,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{drinkAge,jdbcType=INTEGER}, #{drinkingCapacity,jdbcType=REAL}, 
+      #{level,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, #{integral,jdbcType=INTEGER}, 
+      #{accumulatedIntegral,jdbcType=INTEGER}, #{invitedCode,jdbcType=INTEGER}, #{sign,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{latitude,jdbcType=DOUBLE}, 
+      #{longitude,jdbcType=DOUBLE}, #{city,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{activated,jdbcType=BIT}, #{deleted,jdbcType=BIT}, 
+      #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="hwUsername != null" >
+        hw_username,
+      </if>
+      <if test="hwPassword != null" >
+        hw_password,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="drinkAge != null" >
+        drink_age,
+      </if>
+      <if test="drinkingCapacity != null" >
+        drinking_capacity,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="accumulatedIntegral != null" >
+        accumulated_integral,
+      </if>
+      <if test="invitedCode != null" >
+        invited_code,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hwUsername != null" >
+        #{hwUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="hwPassword != null" >
+        #{hwPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="drinkAge != null" >
+        #{drinkAge,jdbcType=INTEGER},
+      </if>
+      <if test="drinkingCapacity != null" >
+        #{drinkingCapacity,jdbcType=REAL},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="accumulatedIntegral != null" >
+        #{accumulatedIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="invitedCode != null" >
+        #{invitedCode,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.User" >
+    update t_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hwUsername != null" >
+        hw_username = #{hwUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="hwPassword != null" >
+        hw_password = #{hwPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="drinkAge != null" >
+        drink_age = #{drinkAge,jdbcType=INTEGER},
+      </if>
+      <if test="drinkingCapacity != null" >
+        drinking_capacity = #{drinkingCapacity,jdbcType=REAL},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="accumulatedIntegral != null" >
+        accumulated_integral = #{accumulatedIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="invitedCode != null" >
+        invited_code = #{invitedCode,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.User" >
+    update t_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      hw_username = #{hwUsername,jdbcType=VARCHAR},
+      hw_password = #{hwPassword,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      drink_age = #{drinkAge,jdbcType=INTEGER},
+      drinking_capacity = #{drinkingCapacity,jdbcType=REAL},
+      level = #{level,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      integral = #{integral,jdbcType=INTEGER},
+      accumulated_integral = #{accumulatedIntegral,jdbcType=INTEGER},
+      invited_code = #{invitedCode,jdbcType=INTEGER},
+      sign = #{sign,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      city = #{city,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from t_user
+    where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from t_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+ 
+  
+  
+</mapper>

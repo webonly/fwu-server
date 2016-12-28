@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.techsun.famouswine.dao.BrowseMapper" >
+  <resultMap id="BaseResultMap" type="com.techsun.famouswine.domain.Browse" >
+    <id column="browse_id" property="browseId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="page" property="page" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="BIT" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+   <resultMap id="BaseResultBrowse" type="com.techsun.famouswine.domain.BrowseResultSet" >
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="visits" property="visits" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="turnover" property="turnover" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="BrowseCount" type="com.techsun.famouswine.domain.BrowseCount" >
+    <result column="browse_count" property="browseCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    browse_id, user_id, merchant_id, page, activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_browse
+    where browse_id = #{browseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_browse
+    where browse_id = #{browseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.techsun.famouswine.domain.Browse" >
+    <selectKey resultType="java.lang.Integer" keyProperty="browseId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_browse (user_id, merchant_id, page, 
+      activated, deleted, updated_date, 
+      created_date)
+    values (#{userId,jdbcType=INTEGER}, #{merchantId,jdbcType=INTEGER}, #{page,jdbcType=VARCHAR}, 
+      #{activated,jdbcType=BIT}, #{deleted,jdbcType=BIT}, #{updatedDate,jdbcType=TIMESTAMP}, 
+      #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.techsun.famouswine.domain.Browse" >
+    <selectKey resultType="java.lang.Integer" keyProperty="browseId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_browse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="page != null" >
+        page,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="page != null" >
+        #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.techsun.famouswine.domain.Browse" >
+    update t_browse
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="page != null" >
+        page = #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=BIT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where browse_id = #{browseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.techsun.famouswine.domain.Browse" >
+    update t_browse
+    set user_id = #{userId,jdbcType=INTEGER},
+      merchant_id = #{merchantId,jdbcType=INTEGER},
+      page = #{page,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=BIT},
+      deleted = #{deleted,jdbcType=BIT},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where browse_id = #{browseId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectBrowseCount" resultMap="BrowseCount" parameterType="com.techsun.famouswine.domain.BrowseResultSet" >
+    SELECT
+	count(browse_id) browse_count
+	FROM
+	t_browse b
+	INNER JOIN t_merchant m ON b.merchant_id = m.merchant_id 
+	AND b.merchant_id=1
+	AND TO_DAYS(b.created_date)=TO_DAYS(#{createdDate,jdbcType=VARCHAR})
+
+  </select>
+  
+   <select id="selectYeBrowseCount" resultMap="BaseResultBrowse" parameterType="com.techsun.famouswine.domain.BrowseResultSet" >
+    SELECT
+	*
+	FROM
+	t_browse
+	INNER JOIN t_merchant ON t_browse.merchant_id = t_merchant.merchant_id 
+	AND t_browse.merchant_id=#{merchantId,jdbcType=INTEGER}
+	AND TO_DAYS(t_browse.created_date)=TO_DAYS(#{createdDate,jdbcType=VARCHAR})
+  </select>
+</mapper>
